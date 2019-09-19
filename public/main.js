@@ -1,4 +1,5 @@
 var socket = io.connect( process.env.PORT || 'http://localhost:3000');
+console.log("I SAY SOMETHING");
 let roomName;
 let roomPass;
 let charName;
