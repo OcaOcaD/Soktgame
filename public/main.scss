@@ -1,0 +1,136 @@
+@import "./mainVar";
+*{
+    font-family: 'Montserrat', sans-serif;
+}
+html, body{
+    @include noMorp();
+    @include flexCenter(column);
+    justify-content: flex-start;
+    background-color: $dgrey;
+}
+main{
+    @include size(100vw, 100vh);
+    @include flexCenter( column );
+    justify-content: flex-start;
+    // background-color: $dgrey;
+}
+.title{
+    @include flexCenter( row );
+    .word{
+        font-size: 40px;
+        font-weight: bold;
+        h1{
+            padding-left: 0.25em;
+            padding-right: 0.25em;
+        }
+        &:first-child{
+            color: $b;
+        }
+        &:last-child{
+            color: $g;
+        }
+    }
+}
+
+.screen{
+    @include flexCenter( column );
+    width: 100vw;
+    height: auto;
+    //ROOMS
+    .roomSelect{
+        @include flexCenter( row );
+        justify-content: space-evenly;
+        width: 100%;
+    }
+    .roomForm{
+        @include flexCenter( column );
+        padding: 1em;
+        width: 350px;
+        min-height: 350px;
+        height: auto;
+        &:first-child{
+            background-color: $lg;
+            color: $dg;
+        }
+        &:last-child{
+            background-color: $lb;
+            color: $db;
+        }
+        h3{
+            font-size: 25px;
+            margin: 0;
+            padding: 0 0 1em 0;
+        }
+        .roomOption{
+            @include flexCenter( column );
+            width: 100%;
+            label{
+                margin: 0;
+                color: inherit;
+                height: 40px;
+                width: 80%;
+            }
+            input{
+                margin: 0 0 1em 0;
+                background-color: $dgrey;
+                border: none;
+                height: 40px;
+                width: 80%;
+                text-indent: 2em;
+            }
+            .someButton{
+                height: 40px;
+                width: 80%;
+                margin-top: 0.5em;
+                font-weight: bold;
+            }
+        }
+    }
+    .g{
+        color: $g;
+        background-color: $dg;
+        border: 2px solid $g;
+    }
+    .gt{
+        color: $g;
+    }
+    .b{
+        color: $b;
+        background-color: $db;
+        border: 2px solid $b;
+    }
+    .bt{
+        color: $b;
+    }
+    //CHARAACTERS
+    .fightersTitle{
+        color: $lb;
+        font-size: 35px;
+    }
+    .characters{
+        @include size( 100vw, auto );
+        @include flexCenter( row );
+        &:hover{
+            cursor: pointer;
+        }
+        .c{
+            @include flexCenter( column );
+            width: 350px;
+            height: 350px;
+            margin-left: 50px;
+            margin-right: 50px;
+            background-color: $lb;
+            img{
+                min-width: 50px;
+                min-height: 50px;
+                max-width: 50px;
+                max-height: 50px;
+            }
+        }
+    }
+}
+.p5Canvas{
+    display: none;
+    border: 1px solid $b;
+    margin-bottom: 100px;
+}

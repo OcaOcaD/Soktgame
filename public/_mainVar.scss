@@ -1,0 +1,25 @@
+$dgrey : #1D1D1B;
+$lgrey: #9D9D9C;
+// _______PLAYER 1__________
+$lg : #EAFFB8;
+$g : #8AB329;
+$dg : #2B3D00;
+// _______PLAYER 2__________
+$lb: #B4FCFF;
+$b : #12F5FE;
+$db: #004F53;
+//MIXINS
+@mixin size( $w, $h ){
+    width: $w;
+    height: $h;
+}
+@mixin noMorp() {
+    margin : 0;
+    padding: 0;
+}
+@mixin flexCenter( $direction ) {
+    display: flex;
+    flex-direction: $direction;
+    justify-content: center;
+    align-items: center;
+}

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./main.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+    <title>SOCKET GAME</title>
+</head>
+<body>
+    <main class="main">
+        <div class="title">
+            <div class="word"><h1>SOCKET</h1></div>
+            <div class="word"><h1>GAME</h1></div>
+        </div>
+        </div>
+        <div class="screen">
+            <div class="roomSelect">
+                <!-- Join or create -->
+                <div class="roomForm">
+                    <h3>Create a room</h3>
+                    <div class="roomOption">
+                        <label for="">Room name: </label>
+                        <input class="crn gt" type="text" placeholder="Some cool name">
+                        <label for="">Pass: </label>
+                        <input class="crp gt" type="password">
+                        <button class="someButton g" onclick="createRoom()">CREATE NOW</button>
+                    </div>
+                </div>
+                <div class="roomForm">
+                    <h3>Enter a room</h3>
+                    <div class="roomOption">
+                        <label for="">Room name: </label>
+                        <input class="jrn gt" type="text" placeholder="A cool name?">
+                        <label for="">Pass: </label>
+                        <input class="jrp gt" type="password">
+                        <button class="someButton b" onclick="joinRoom()">
+                            JOIN NOW
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </main>
+    <script src = "sketch.js" ></script>        
+    <script src = "utilities/p5/p5/empty-example/p5.js" ></script>
+    <script src = "utilities/p5/p5/empty-example/p5.dom.js" ></script>
+    <script src = "utilities/jquery.js"></script>
+    <!-- <script src = "utilities/socket.io.dev.js"></script> -->
+    <script src = "https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.dev.js"></script>
+    <script src = "main.js">  </script>
+</body>
+</html>

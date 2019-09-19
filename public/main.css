@@ -1,0 +1,275 @@
+* {
+  font-family: 'Montserrat', sans-serif;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  background-color: #1D1D1B;
+}
+
+main {
+  width: 100vw;
+  height: 100vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+}
+
+.title {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.title .word {
+  font-size: 40px;
+  font-weight: bold;
+}
+
+.title .word h1 {
+  padding-left: 0.25em;
+  padding-right: 0.25em;
+}
+
+.title .word:first-child {
+  color: #12F5FE;
+}
+
+.title .word:last-child {
+  color: #8AB329;
+}
+
+.screen {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100vw;
+  height: auto;
+}
+
+.screen .roomSelect {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  width: 100%;
+}
+
+.screen .roomForm {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 1em;
+  width: 350px;
+  min-height: 350px;
+  height: auto;
+}
+
+.screen .roomForm:first-child {
+  background-color: #EAFFB8;
+  color: #2B3D00;
+}
+
+.screen .roomForm:last-child {
+  background-color: #B4FCFF;
+  color: #004F53;
+}
+
+.screen .roomForm h3 {
+  font-size: 25px;
+  margin: 0;
+  padding: 0 0 1em 0;
+}
+
+.screen .roomForm .roomOption {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+}
+
+.screen .roomForm .roomOption label {
+  margin: 0;
+  color: inherit;
+  height: 40px;
+  width: 80%;
+}
+
+.screen .roomForm .roomOption input {
+  margin: 0 0 1em 0;
+  background-color: #1D1D1B;
+  border: none;
+  height: 40px;
+  width: 80%;
+  text-indent: 2em;
+}
+
+.screen .roomForm .roomOption .someButton {
+  height: 40px;
+  width: 80%;
+  margin-top: 0.5em;
+  font-weight: bold;
+}
+
+.screen .g {
+  color: #8AB329;
+  background-color: #2B3D00;
+  border: 2px solid #8AB329;
+}
+
+.screen .gt {
+  color: #8AB329;
+}
+
+.screen .b {
+  color: #12F5FE;
+  background-color: #004F53;
+  border: 2px solid #12F5FE;
+}
+
+.screen .bt {
+  color: #12F5FE;
+}
+
+.screen .fightersTitle {
+  color: #B4FCFF;
+  font-size: 35px;
+}
+
+.screen .characters {
+  width: 100vw;
+  height: auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.screen .characters:hover {
+  cursor: pointer;
+}
+
+.screen .characters .c {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 350px;
+  height: 350px;
+  margin-left: 50px;
+  margin-right: 50px;
+  background-color: #B4FCFF;
+}
+
+.screen .characters .c img {
+  min-width: 50px;
+  min-height: 50px;
+  max-width: 50px;
+  max-height: 50px;
+}
+
+.p5Canvas {
+  display: none;
+  border: 1px solid #12F5FE;
+}
+/*# sourceMappingURL=main.css.map */
