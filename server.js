@@ -10,8 +10,9 @@ const bodyParser = require('body-parser');
 //ENV
 require('dotenv/config');
 //SetuUp DB
+var url = process.env.MONGODB_URI || 'mongodb://heroku_xq6tcx4n:4g41drepq050kuklv9tkm5fmpq@ds015403.mlab.com:15403/heroku_xq6tcx4n';
 mongoose.connect(
-    process.env.DB_HEROKU,
+    url,
     {   useUnifiedTopology: true,
         useNewUrlParser: true }, 
     () => console.log("Connected to DB!")
