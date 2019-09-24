@@ -26,9 +26,9 @@ const scoreRoute = require('./routes/scoreboard');
 app.use('/scoreboard', scoreRoute)
     
 //Listinig port
-// var server = app.listen( process.env.PORT || 3000);
+var server = app.listen( process.env.PORT || 3000);
+// var server = app.listen(3000);
 console.log("SERVING MY FIRST GAME");
-var server = app.listen(3000);
 var io = socket(server);
 
 
