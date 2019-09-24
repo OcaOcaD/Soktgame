@@ -187,7 +187,7 @@ io.on('connection', function(socket){
         console.log("EL BUENO:");
         console.log(missile);
         console.log("Winner: "+winner)
-        console.log("Shots: "+shots)
+        console.log("Shots: " + missile.projectile.n)
         addToScoreboard( winner, missile.projectile.n );
     });
 
