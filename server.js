@@ -9,6 +9,8 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 //ENV
 require('dotenv/config');
+// shit
+const Score = require('./models/Score')
 //SetuUp DB
 mongoose.connect(
     // process.env.DB_CONNECTION,
@@ -207,5 +209,12 @@ fullRoom = ( room ) => {
 
 //Add teh winner data to the scoreboard module on DB
 addToScoreboard = ( winner, shots ) => {
-
+    const score = new Score({
+        player: winner,
+        shots: shots
+    });
+    
+        score.save();
+        console.log( "SAVED" )
+    
 }
