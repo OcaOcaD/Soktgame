@@ -11,6 +11,12 @@ const bodyParser = require('body-parser');
 require('dotenv/config');
 //SetuUp DB
 var url = process.env.MONGODB_URI;
+try {
+    assert.ok(typeof process.env.MONGO_URI === 'string')
+  } catch(e) {
+    console.error('process.env.MONGO_URI isn\'t set correctly')
+    process.exit(1)
+  }
 mongoose.connect(
     process.env.MONGODB_URI || process.env.DB_HEROKU,
     {   useUnifiedTopology: true,
