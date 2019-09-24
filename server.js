@@ -11,7 +11,7 @@ const bodyParser = require('body-parser');
 require('dotenv/config');
 //SetuUp DB
 mongoose.connect(
-    process.env.DB_CONNECTION,
+    process.env.DB_HEROKU,
     {   useUnifiedTopology: true,
         useNewUrlParser: true }, 
     () => console.log("Connected to DB!")
