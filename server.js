@@ -28,7 +28,7 @@ app.use(bodyParser.json());
 app.use( express.static('public') );
 //Import scorecboard
 const scoreRoute = require('./routes/scoreboard');
-//MIDDLEWARE(S)
+//MIDDLEWARE(S)     
 app.use('/scoreboard', scoreRoute)
     
 //Listinig port
@@ -182,6 +182,8 @@ io.on('connection', function(socket){
         //Alarm the winner
         io.to(enemy).emit('winner', missile.projectile);
         //Add winner to scoreboard
+        console.log("Winner: "+winner)
+        console.log("Shots: "+shots)
         addToScoreboard( winner, missile.shots );
     });
 
