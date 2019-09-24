@@ -133,6 +133,7 @@ io.on('connection', function(socket){
         let r = playerInfo.onRoom;
         let i = playerInfo.id;
         let c = playerInfo.character;
+        let n = playerInfo.name;
         var activeRoom;
         if ( activeRoom = roomExists( r ) ){
             for (let p of activeRoom.players) {
@@ -140,6 +141,7 @@ io.on('connection', function(socket){
                 if ( p.id == i ){
                     //Player found
                     p.character = c;
+                    p.name = n;
                     // io.to(socket.id).emit('waitScreen', 'Waiting for other players...');
                     io.to(socket.id).emit('playingTheGame', activeRoom);
                 }
@@ -150,7 +152,7 @@ io.on('connection', function(socket){
     });
 
     socket.on('sendMissil', (missile) => {
-        console.log("INCOMING");
+        console.log("INCOMING SHOT "+ missile.projectile.n);
         let r;
         let enemy;
         r = roomExists( missile.room );
@@ -184,7 +186,7 @@ io.on('connection', function(socket){
         //Add winner to scoreboard
         console.log("Winner: "+winner)
         console.log("Shots: "+shots)
-        addToScoreboard( winner, missile.shots );
+        addToScoreboard( winner, missile.projectile.n );
     });
 
     socket.on('disconnect', function(){

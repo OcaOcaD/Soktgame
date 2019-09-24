@@ -55,6 +55,7 @@ handleCharacterSelection = ( element ) => {
     charName = element.id;
     playerInfo.character = charName;
     playerInfo.name  = userName;
+    console.log( "Player info name: " + playerInfo.name );
     socket.emit('selectFighter', playerInfo);
     // setup();
 }
