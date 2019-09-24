@@ -10,16 +10,16 @@ const bodyParser = require('body-parser');
 //ENV
 require('dotenv/config');
 //SetuUp DB
-mongoose.connect(
-    // process.env.DB_CONNECTION,
-    // process.env.MONGODB_URI || "mongodb://oca_oca:password_123@ds015403.mlab.com:15403/heroku_xq6tcx4n",
-    String(process.env.MONGODB_URI),
-    {   
-        useMongoClient: true,
-        useUnifiedTopology: true,
-        useNewUrlParser: true }, 
-    () => console.log("Connected to DB!")
-);
+// mongoose.connect(
+//     // process.env.DB_CONNECTION,
+//     // process.env.MONGODB_URI || "mongodb://oca_oca:password_123@ds015403.mlab.com:15403/heroku_xq6tcx4n",
+//     process.env.MONGODB_URI,
+//     {   
+//         useMongoClient: true,
+//         useUnifiedTopology: true,
+//         useNewUrlParser: true }, 
+//     () => console.log("Connected to DB!")
+// );
 //Use Body Parser for requests
 app.use(bodyParser.json());
 //MAIN ROUTE
