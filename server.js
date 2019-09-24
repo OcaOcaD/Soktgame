@@ -11,7 +11,8 @@ const bodyParser = require('body-parser');
 require('dotenv/config');
 //SetuUp DB
 mongoose.connect(
-    process.env.MONGODB_URI || "mongodb://oca_oca:password_123@ds015403.mlab.com:15403/heroku_xq6tcx4n" || process.env.DB_CONNECTION ,
+    // process.env.MONGODB_URI || "mongodb://oca_oca:password_123@ds015403.mlab.com:15403/heroku_xq6tcx4n" || process.env.DB_CONNECTION ,
+    process.env.DB_CONNECTION,
     {   useMongoClient: true,
         useUnifiedTopology: true,
         useNewUrlParser: true }, 
@@ -27,8 +28,8 @@ const scoreRoute = require('./routes/scoreboard');
 app.use('/scoreboard', scoreRoute)
     
 //Listinig port
-var server = app.listen( process.env.PORT || 3000);
-// var server = app.listen(3000);
+// var server = app.listen( process.env.PORT || 3000);
+var server = app.listen(3000);
 console.log("SERVING MY FIRST GAME");
 var io = socket(server);
 
