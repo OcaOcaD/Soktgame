@@ -13,10 +13,10 @@ require('dotenv/config');
 mongoose.connect(
     // process.env.DB_CONNECTION,
     // process.env.MONGODB_URI || "mongodb://oca_oca:password_123@ds015403.mlab.com:15403/heroku_xq6tcx4n",
-    process.env.MONGODB_URI,
+    String(process.env.MONGODB_URI),
     {   
-        // useMongoClient: true,
-        // useUnifiedTopology: true,
+        useMongoClient: true,
+        useUnifiedTopology: true,
         useNewUrlParser: true }, 
     () => console.log("Connected to DB!")
 );
