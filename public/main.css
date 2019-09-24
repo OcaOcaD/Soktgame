@@ -268,8 +268,19 @@ main {
   max-height: 50px;
 }
 
+.score {
+  color: #12F5FE;
+  background-color: #004F53;
+  border: 2px solid #12F5FE;
+  height: 40px;
+  width: 240px;
+  margin: 2em;
+  font-weight: bold;
+}
+
 .p5Canvas {
   display: none;
   border: 1px solid #12F5FE;
+  margin-bottom: 100px;
 }
 /*# sourceMappingURL=main.css.map */

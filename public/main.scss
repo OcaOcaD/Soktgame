@@ -129,6 +129,15 @@ main{
         }
     }
 }
+.score{
+    color: $b;
+    background-color: $db;
+    border: 2px solid $b;
+    height: 40px;
+    width: 240px;
+    margin: 2em;
+    font-weight: bold;
+}
 .p5Canvas{
     display: none;
     border: 1px solid $b;

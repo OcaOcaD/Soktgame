@@ -2,12 +2,15 @@
 let fr = 30;
 let w =  1024;
 let h =  720;
+w = 1440;
+h = 810
 let frontier = [];
 let playerTeam;
 let enemy
 let currentRoom;    //This object gonnac ontain the room info (players, name)
 let projectiles = [];
 let missiles = [];
+let shots = 0;
 
 
 let normalWeapon = {
@@ -87,6 +90,11 @@ setup = () => {
         missile.y = 0;
         missiles.push( missile )
     })
+    socket.on('winner', ( missile ) => {
+        window.alert("GANASTE CON " + missile.n + " PROYECTIL(ES)");
+        console.log( missile );
+        //scoreBoard(userName, missile.n);
+    })
     console.log("SETUP????");
     frameRate( fr );
     //Create character
@@ -101,18 +109,22 @@ setup = () => {
 }
 //
 draw = () =>{    
-    background(69);
+    background( 29, 29, 27 );
     noStroke();
     fill(  pr, pg, pb );
     rect( 0, 0, w, 10 );    //Frontier
+    drawBases(playerInfo.lcolor, playerInfo.color, playerInfo.dcolor);
     drawProjectiles();
     drawMissiles();
     if( missileHit() ){
+        
         window.alert("PERDISTE");
         background( 255, 0, 0 );
         noLoop()
     }
-    fill(  pr, pg, pb );
+    //Drawing the character
+    fill( pr, pg, pb );
+    stroke( playerInfo.dcolor.r, playerInfo.dcolor.g, playerInfo.dcolor.n );
     if ( character == "squeert" ){
         rect( position.x, position.y, 50, 50 );
     }
@@ -124,23 +136,49 @@ draw = () =>{
     }
     //MOVEMENT
     if ( keyIsDown(65) ) {  // A
-        position.x -= 3;
+        position.x -= 5;
     }
     if ( keyIsDown(68) ) {  // D
-        position.x += 3;
+        position.x += 5;
     }
     if ( keyIsDown(87) ) {  // W
-        position.y -= 3;
+        position.y -= 5;
     }
     if ( keyIsDown(83) ) {  // s
-        position.y += 3;
+        position.y += 5;
     }
     moveProjectiles();
     moveMissiles();
 }
+//Draw bases
+drawBases = (l, c, d) => {
+    //light, color, dark
+    strokeWeight(2);
+    stroke( l.r, l.g, l.b );    //light color stroke
+    fill( l.r, l.g, l.b );      //light color fill
+    circle( w/2, h/2, (h/8)*2 );
+    noFill();
+    circle( w/2, h/2, (h/6)*2 );
+    stroke( c.r, c.g, c.b );    //normal color stroke
+    circle( w/2, h/2, (h/4)*2 );
+    stroke( d.r, d.g, d.b );    //dark color stroke
+    circle( w/2, h/2, (h/3)*2 );
+    //House rectangle    
+    noStroke();
+    fill( d.r, d.g, d.b );    //dark color fill
+    rect( (w/2)-40, (h/2)-20, 80, 60, 0, 0, 5, 5 );
+    //House triangle
+    triangle( (w/2), (h/2)-50, (w/2-40), (h/2)-20, (w/2)+40, (h/2)-20 );
+    //Cross lines
+    fill( l.r, l.g, l.b );    //normal color fill
+    rect( (w/2)-20, (h/2), 40, 10, 5 );
+    rect( (w/2)-5, (h/2)-15, 10, 40, 5 );
+    strokeWeight(1);
+}
 function keyPressed() {
     if (keyCode === 70) {
-      newProjectile( normalWeapon );
+        shots++;
+        newProjectile( normalWeapon );
     }
 }
 newProjectile = ( weapon ) => {
@@ -153,7 +191,8 @@ newProjectile = ( weapon ) => {
         x: position.x+20,
         y: position.y - weapon.height,
         team: playerTeam,
-        speed: 10
+        speed: 10,
+        n: shots
     }
     projectiles.push( nP )
     // rect( position.x + 20, position.y - weapon.y, weapon.width, weapon.height );
@@ -222,6 +261,12 @@ missileHit = () => {
                 //X axis matches
                 if( m.y >= position.y && m.y <= (position.y + 50) ){
                     //Y axis crashes too. Missile hit
+                    let winnerHit = {
+                        projectile: m,
+                        from: playerInfo.id,
+                        room: roomName
+                    }
+                    socket.emit('gotHit', winnerHit);
                     return true;
                 }
             }

@@ -1,8 +1,10 @@
-var socket = io.connect( process.env.PORT || 'http://localhost:3000');
+// var socket = io.connect( process.env.PORT || 'http://localhost:3000');
+var socket = io();
 console.log("I SAY SOMETHING");
 let roomName;
 let roomPass;
 let charName;
+let userName;
 let playerInfo = {};
 
 socket.on( 'roomJoined', (playerTemplate) => {
@@ -45,10 +47,14 @@ handleRoomSelection = ( element ) => {
     $(".screen").load( "characters.html" );
     
 }
+userNameChanged = ( element ) => {
+    userName = element.value;
+    console.log( userName );
+}
 handleCharacterSelection = ( element ) => {
     charName = element.id;
     playerInfo.character = charName;
-    console.log("Character selected");
+    playerInfo.name  = userName;
     socket.emit('selectFighter', playerInfo);
     // setup();
 }

@@ -1,12 +1,45 @@
 const express = require('express');
 //Server stuff
 var app = express();
-var server = app.listen( process.env.PORT || 3000);
-app.use( express.static('public') );
-console.log("SERVING MY FIRST GAME");
 //Socket.io
 var socket = require('socket.io');
+//Mongo Atlas
+const mongoose = require('mongoose');
+//Body Parser
+const bodyParser = require('body-parser');
+//ENV
+require('dotenv/config');
+//SetuUp DB
+mongoose.connect(
+    process.env.DB_CONNECTION,
+    {   useUnifiedTopology: true,
+        useNewUrlParser: true }, 
+    () => console.log("Connected to DB!")
+);
+//Use Body Parser for requests
+app.use(bodyParser.json());
+//MAIN ROUTE
+app.use( express.static('public') );
+//Import scorecboard
+const scoreRoute = require('./routes/scoreboard');
+//MIDDLEWARE(S)
+app.use('/scoreboard', scoreRoute)
+    
+//Listinig port
+// var server = app.listen( process.env.PORT || 3000);
+console.log("SERVING MY FIRST GAME");
+var server = app.listen(3000);
 var io = socket(server);
+
+
+/*
+*
+*
+* SOCKET.IO EVENTS 
+*
+*
+*
+**/
 //Client counting
 var clientCount = 0;
 //Rooms available
@@ -29,8 +62,11 @@ io.on('connection', function(socket){
             socket.join( r.name );
             let playerTemplate = {
                 id: socket.id,
+                name: '',
                 character: '',
                 color: {r:138,g:179,b:41},
+                lcolor: {r:234,g:255,b:184},
+                dcolor: {r:43,g:61,b:1},
                 onRoom: room.name
             }
             let newRoom = {
@@ -60,8 +96,11 @@ io.on('connection', function(socket){
                 console.log("Joining room...");
                 let playerTemplate = {
                     id: socket.id,
+                    name: '',
                     character: '',
                     color: {r:18,g:245,b:254},
+                    lcolor: {r:181,g:252,b:255},
+                    dcolor: {r:0,g:79,b:83},
                     onRoom: r.name
                 }
                 r.players.push( playerTemplate );
@@ -71,10 +110,6 @@ io.on('connection', function(socket){
                 //Broadcast a new player has joined
                 io.to(r.name).emit('joined', 'Player ' + socket.id + ' has joined the Room.' );
                 // console.log("Player " + socket.id + " joined room: " + r.players.onRoom );
-
-                console.log("ENTONCES EN RESUMEN....")
-                console.log("ENTONCES EN RESUMEN....")
-                console.log("ENTONCES EN RESUMEN....")
                 console.log("ENTONCES EN RESUMEN....")
                 console.log(rooms);
             }else{
@@ -124,6 +159,26 @@ io.on('connection', function(socket){
         io.to(enemy).emit('valisteVerga', missile.projectile);
     });
 
+    socket.on('gotHit', (missile) => {
+        let r;
+        let enemy;
+        let winner;
+        r = roomExists( missile.room );
+        console.log( missile );
+        //Search for the id of the enemy
+        for (let p of r.players) {
+            if( p.id != missile.from ){
+                enemy     = p.id;
+                winner = p.name;
+                console.log("WINNER IS: " + winner );
+            }
+        }
+        //Alarm the winner
+        io.to(enemy).emit('winner', missile.projectile);
+        //Add winner to scoreboard
+        addToScoreboard( winner, missile.shots );
+    });
+
     socket.on('disconnect', function(){
         console.log('User left the game');
         clientCount--;
@@ -144,4 +199,9 @@ fullRoom = ( room ) => {
     }else{
         return true;
     }
+}
+
+//Add teh winner data to the scoreboard module on DB
+addToScoreboard = ( winner, shots ) => {
+
 }
