@@ -12,7 +12,7 @@ require('dotenv/config');
 //SetuUp DB
 var url = process.env.MONGODB_URI;
 mongoose.connect(
-    process.env.MONGODB_URI || process.env.DB_CONNECTION,
+    process.env.MONGODB_URI || process.env.DB_HEROKU,
     {   useUnifiedTopology: true,
         useNewUrlParser: true }, 
     () => console.log("Connected to DB!")
