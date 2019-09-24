@@ -4,7 +4,7 @@ var app = express();
 //Socket.io
 var socket = require('socket.io');
 //Mongo Atlas
-const mongoose = require('mongoose');
+// const mongoose = require('mongoose');
 //Body Parser
 const bodyParser = require('body-parser');
 //ENV
@@ -21,7 +21,7 @@ require('dotenv/config');
 //     () => console.log("Connected to DB!")
 // );
 //Use Body Parser for requests
-app.use(bodyParser.json());
+// app.use(bodyParser.json());
 //MAIN ROUTE
 app.use( express.static('public') );
 //Import scorecboard
