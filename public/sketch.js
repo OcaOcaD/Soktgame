@@ -8,10 +8,10 @@ let frontier = [];
 let playerTeam;
 let enemy
 let currentRoom;    //This object gonnac ontain the room info (players, name)
-let projectiles = [];
-let missiles = [];
-let shots = 0;
-
+let projectiles = []
+let missiles = []
+let shots = 0
+let blocks = []
 
 let normalWeapon = {
     width: 10,
@@ -37,6 +37,8 @@ let character;      //Figure of the player
 let pr; //R
 let pg; //G
 let pb; //B
+
+
 setStartingChar = () => {
     if ( character == "squeert" ){
         console.log("drawing a rect");
@@ -61,9 +63,15 @@ preload = () => {
         $(".screen").hide();
         $(".main").css({"height": "auto"})
         $(".p5Canvas").show();
-        pr = playerInfo.color.r;
-        pg = playerInfo.color.g;
-        pb = playerInfo.color.b;
+        pr = playerInfo.color.r
+        pg = playerInfo.color.g
+        pb = playerInfo.color.b
+        pcolor = [ playerInfo.color.r, playerInfo.color.g, playerInfo.color.b ]
+        lcolor = [ playerInfo.lcolor.r, playerInfo.lcolor.g, playerInfo.lcolor.b ]
+        dcolor = [ playerInfo.dcolor.r, playerInfo.dcolor.g, playerInfo.dcolor.b ]
+        console.log( "dcolor", playerInfo.lcolor )
+        console.log( "dcolor", playerInfo.color )
+        console.log( "dcolor", playerInfo.dcolor )
         //get the enemy socket it
         console.log("I AM: " + playerInfo.id );
         console.log(room);
@@ -81,9 +89,9 @@ preload = () => {
         $(".p5Canvas").css({"border": "2px solid rgb("+pr+", "+pg+", "+pb+")"}) 
         setup();
         setTimeout(function(){ loop(); }, 1500);       
-     } );
+    } );
 }
-setup = () => {
+setup = async () => {
     socket.on('valisteVerga', ( missile ) => {
         console.log("RECIBI ALGO");
         console.log( missile );
@@ -101,19 +109,23 @@ setup = () => {
     noStroke();
     fill(  pr, pg, pb );    //Player color
     character = playerInfo.character;
+
     console.log("character => " + character);
     setStartingChar();  //Create char and start position
     createCanvas(w,h);  //Create "map"
+    blocks = await setBlocks(w, h)
+    console.log("blocksssss", blocks)
         //Retrieve room info and use it
     
 }
 //
 draw = () =>{    
     background( 29, 29, 27 );
+    drawBlocks( blocks )
     noStroke();
-    fill(  pr, pg, pb );
+    fill( pcolor );
     rect( 0, 0, w, 10 );    //Frontier
-    drawBases(playerInfo.lcolor, playerInfo.color, playerInfo.dcolor);
+    drawBases( lcolor, pcolor, dcolor );
     drawProjectiles();
     drawMissiles();
     if( missileHit() ){
@@ -122,59 +134,73 @@ draw = () =>{
         background( 255, 0, 0 );
         noLoop()
     }
-    //Drawing the character
-    fill( pr, pg, pb );
-    stroke( playerInfo.dcolor.r, playerInfo.dcolor.g, playerInfo.dcolor.n );
-    if ( character == "squeert" ){
-        rect( position.x, position.y, 50, 50 );
-    }
-    if ( character == "zyrk" ){
-        circle( position.x+25, position.y+25, 50 );
-    }
-    if ( character == "tryan" ){
-        triangle(position.x, position.y, position.x-25, position.y+50, position.x+25, position.y+50);
-    }
-    //MOVEMENT
-    if ( keyIsDown(65) ) {  // A
-        position.x -= 5;
-    }
-    if ( keyIsDown(68) ) {  // D
-        position.x += 5;
-    }
-    if ( keyIsDown(87) ) {  // W
-        position.y -= 5;
-    }
-    if ( keyIsDown(83) ) {  // s
-        position.y += 5;
-    }
+    drawChar( character )
+    setMovementListeners()
+    
     moveProjectiles();
     moveMissiles();
 }
-//Draw bases
-drawBases = (l, c, d) => {
-    //light, color, dark
-    strokeWeight(2);
-    stroke( l.r, l.g, l.b );    //light color stroke
-    fill( l.r, l.g, l.b );      //light color fill
-    circle( w/2, h/2, (h/8)*2 );
-    noFill();
-    circle( w/2, h/2, (h/6)*2 );
-    stroke( c.r, c.g, c.b );    //normal color stroke
-    circle( w/2, h/2, (h/4)*2 );
-    stroke( d.r, d.g, d.b );    //dark color stroke
-    circle( w/2, h/2, (h/3)*2 );
-    //House rectangle    
-    noStroke();
-    fill( d.r, d.g, d.b );    //dark color fill
-    rect( (w/2)-40, (h/2)-20, 80, 60, 0, 0, 5, 5 );
-    //House triangle
-    triangle( (w/2), (h/2)-50, (w/2-40), (h/2)-20, (w/2)+40, (h/2)-20 );
-    //Cross lines
-    fill( l.r, l.g, l.b );    //normal color fill
-    rect( (w/2)-20, (h/2), 40, 10, 5 );
-    rect( (w/2)-5, (h/2)-15, 10, 40, 5 );
-    strokeWeight(1);
+//
+setMovementListeners = () => {
+    ////////////////////////NORMAL MOVES//////////////////////////////
+    if ( keyIsDown(65) ) {  // A
+        freeMove( position.x-5, position.y, blocks )
+    }
+    if ( keyIsDown(68) ) {  // D
+        freeMove( position.x+5, position.y, blocks )
+    }
+    if ( keyIsDown(87) ) {  // W
+        freeMove( position.x, position.y-5, blocks )
+    }
+    if ( keyIsDown(83) ) {  // s
+        freeMove( position.x, position.y+5, blocks )
+    }
 }
+//
+freeMove = ( x, y, obstacles ) => {
+    let move = doesntHitWalls( x, y, obstacles )
+    if( move ){
+        position.x = x
+        position.y = y
+    }
+}
+//
+doesntHitWalls = ( x, y, obst ) => {
+    for (const o of obst) {
+        if ( o.x <= x && x <= o.x+o.size  )
+            if ( o.y <= y && y <= o.y+o.size  )
+                return false
+    }
+    return true
+}
+
+//Draw character
+drawChar = ( c ) => {
+//Drawing the character
+    setColor( pcolor, dcolor )
+    rectMode( CENTER )
+    switch (c) {
+        case "squeert":{
+            rect( position.x, position.y, 40, 40 );
+            fill( 255 ); point( position.x, position.y )
+            break;
+        }
+        case "zyrk":{
+            circle( position.x, position.y, 40 );
+            fill( 255 ); point( position.x, position.y )
+            break;
+        }
+        case "tryan":{
+            triangle( position.x, position.y-20, position.x-20, position.y+20, position.x+20, position.y+20)
+        fill( 255 ); point( position.x, position.y )
+            break;
+        }
+        default:
+            break;
+    }
+    rectMode( CORNER )
+}
+
 function keyPressed() {
     if (keyCode === 70) {
         shots++;

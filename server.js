@@ -14,7 +14,7 @@ const Score = require('./models/Score')
 //SetuUp DB
 mongoose.connect(
     // process.env.DB_CONNECTION,
-    // process.env.MONGODB_URI || "mongodb://oca_oca:password_123@ds015403.mlab.com:15403/heroku_xq6tcx4n",
+    // process.env.MONGODB_URI || process.env.DB_HEROKU,
     // process.env.MONGODB_URI,
     process.env.MONGODB_URI || process.env.DB_CONNECTION,
     {   
